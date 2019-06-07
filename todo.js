@@ -23,12 +23,32 @@ function addTodo(e) {
 
     const newTodo = todoInput.value.trim();
 
-    addTodoToUI(newTodo);
+    if(newTodo === "" ){
 
+        showAlert("danger","Lütfen bir todo girin...");
+    }else {
+        addTodoToUI(newTodo);
+        showAlert("success","Todo başarı ile eklendi...")
+    }
 
 
 
     e.preventDefault();
+}
+
+function showAlert(type,message) {
+    const alert = document.createElement('div');
+    alert.className=`alert alert-${type}`;
+    alert.textContent=message
+
+    firstCardBody.appendChild(alert); //formumuza alertimizi ekliyoruz.
+
+    // setTimeout metodunu kullanma
+
+    window.setTimeout(function () {
+        alert.remove();
+    },3000)
+
 }
 
 function addTodoToUI(newTodo) { // String değerini list item olarak UI'ya ekleyecek.
