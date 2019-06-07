@@ -28,12 +28,36 @@ function addTodo(e) {
         showAlert("danger","Lütfen bir todo girin...");
     }else {
         addTodoToUI(newTodo);
+        addTodoToStorage(newTodo);
+
         showAlert("success","Todo başarı ile eklendi...")
     }
 
 
 
     e.preventDefault();
+}
+
+function getTodosFromStorage() { //Storagedan todoları almak
+
+    let todos;
+
+    if(localStorage.getItem("todos")===null){
+        todos=[];
+
+    }else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    return todos;
+}
+
+function addTodoToStorage(newTodo) {
+
+    let todos = getTodosFromStorage();
+
+    todos.push(newTodo);
+
+    localStorage.setItem("todos",JSON.stringify(todos));
 }
 
 function showAlert(type,message) {
