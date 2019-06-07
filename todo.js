@@ -26,8 +26,25 @@ function deleteTodo(e) {
 
     if(e.target.className==="fa fa-remove"){
         e.target.parentElement.parentElement.remove();
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
+
         showAlert('success','Todo başarı ile silindi!')
     }
+
+}
+
+function deleteTodoFromStorage(deletetodo) {
+   let todos = getTodosFromStorage();
+   todos.forEach(function (todo,index) {
+       if(todo === deletetodo){
+            todos.splice(index,1); // arrayden değeri silme
+       }
+   });
+
+   localStorage.setItem("todos",JSON.stringify(todos));
+
+
+
 
 }
 function loadAllTodosToUI() {
